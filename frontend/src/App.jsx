@@ -1,16 +1,18 @@
+import { Loader } from "lucide-react";
+import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Footer from "./components/Footer";
+import GuessTheMovie from "./components/GuessTheMovie";
+import NotFoundPage from "./pages/404";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/LoginPage";
+import SearchHistoryPage from "./pages/SearchHistoryPage";
+import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import WatchPage from "./pages/WatchPage";
-import Footer from "./components/Footer";
-import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authUser";
-import { useEffect } from "react";
-import { Loader } from "lucide-react";
-import SearchPage from "./pages/SearchPage";
-import SearchHistoryPage from "./pages/SearchHistoryPage";
-import NotFoundPage from "./pages/404";
+import WatchMood from "./components/WatchMood";
 
 function App() {
 	const { user, isCheckingAuth, authCheck } = useAuthStore();
@@ -38,6 +40,8 @@ function App() {
 				<Route path='/watch/:id' element={user ? <WatchPage /> : <Navigate to={"/login"} />} />
 				<Route path='/search' element={user ? <SearchPage /> : <Navigate to={"/login"} />} />
 				<Route path='/history' element={user ? <SearchHistoryPage /> : <Navigate to={"/login"} />} />
+				<Route path="/guess-the-movie" element={<GuessTheMovie />} />
+				<Route path="/watch-page" element={<WatchMood />} />
 				<Route path='/*' element={<NotFoundPage />} />
 			</Routes>
 			<Footer />

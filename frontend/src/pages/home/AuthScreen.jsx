@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight,ChevronDown } from "lucide-react";
+
 
 const AuthScreen = () => {
+	const [showLangDropdown, setShowLangDropdown] = useState(false);
+
+	const toggleDropdown = () => setShowLangDropdown(!showLangDropdown);
 	const [email, setEmail] = useState("");
 	const navigate = useNavigate();
 
@@ -11,14 +15,39 @@ const AuthScreen = () => {
 		navigate("/signup?email=" + email);
 	};
 
+	
+
 	return (
 		<div className='hero-bg relative'>
 			{/* Navbar */}
 			<header className='max-w-6xl mx-auto flex items-center justify-between p-4 pb-10'>
 				<img src='/netflix-logo.png' alt='Netflix Logo' className='w-32 md:w-52' />
+				<div className='flex items-center gap-4'>
+				{/* Language Button */}
+				<div className='relative'>
+					<button
+						onClick={toggleDropdown}
+						className='flex items-center gap-1 border border-white text-white px-2 py-1 rounded bg-black bg-opacity-60 hover:bg-opacity-80'
+					>
+						<span role='img' aria-label='language'>🌐</span> English
+						<ChevronDown className='w-4 h-4' />
+					</button>
+
+					{showLangDropdown && (
+						<div className='absolute top-10 w-full bg-white text-black rounded shadow-md z-50'>
+							<button className='w-full text-left px-4 py-2 hover:bg-blue-600 hover:text-white'>
+								English
+							</button>
+							<button className='w-full text-left px-4 py-2 hover:bg-blue-600 hover:text-white font-[Devanagari]'>
+								हिन्दी
+							</button>
+						</div>
+					)}
+				</div>
 				<Link to={"/login"} className='text-white bg-red-600 py-1 px-2 rounded'>
 					Sign In
 				</Link>
+				</div>
 			</header>
 
 			{/* hero section */}
